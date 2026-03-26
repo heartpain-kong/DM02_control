@@ -450,11 +450,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
     if (htim->Instance == TIM7)
     {
-        Task1ms_Callback();    //500ns的定时
+        Task500us_Callback();    //500ns的定时
     }
     else if (htim->Instance == TIM8)
     {
-        Task500us_Callback();   //1ms的定时
+        Task1ms_Callback();   //1ms的定时
     }
 }
 
