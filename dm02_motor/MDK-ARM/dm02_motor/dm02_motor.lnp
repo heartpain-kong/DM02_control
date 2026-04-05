@@ -52,12 +52,14 @@
 "dm02_motor\alg_pid.o"
 "dm02_motor\math_support.o"
 "dm02_motor\bsp_fdcan.o"
-"dm02_motor\bsp_rs485.o"
+"dm02_motor\uart.o"
+"dm02_motor\remote_control.o"
 "dm02_motor\motor_ys.o"
 "dm02_motor\motor_lz.o"
 "dm02_motor\motor_dm.o"
 "dm02_motor\motor_dj.o"
 "dm02_motor\motor_task.o"
+"dm02_motor\control_task.o"
 --strict --scatter "..\dm02_motor.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

@@ -7,7 +7,7 @@
 
 
 #include "struct_typedef.h"
-#include "bsp_RS485.h"
+#include "UART.h"
 
 //电机状态
 enum Enum_Motor_YS_Status
@@ -44,6 +44,7 @@ struct Struct_send_motor_YS
 	fp32 W;	
 	fp32 Kp;
 	fp32 Kd;
+	fp32 T_ff;
 };
 
 //电机的控制结构体里面包含了电机的发送和电机的返回

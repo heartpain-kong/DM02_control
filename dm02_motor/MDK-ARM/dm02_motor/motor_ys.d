@@ -1,8 +1,8 @@
 dm02_motor/motor_ys.o: ..\User_File\motor\motor_YS\motor_YS.cpp \
   ..\User_File\motor\motor_YS\motor_YS.h \
-  ..\User_File\algorithm\struct_typedef.h \
-  ..\User_File\BSP\RS485\bsp_RS485.h ..\Core\Inc\usart.h \
-  ..\Core\Inc\main.h ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal.h \
+  ..\User_File\algorithm\struct_typedef.h ..\User_File\BSP\UART\UART.h \
+  ..\Core\Inc\usart.h ..\Core\Inc\main.h \
+  ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal.h \
   ..\Core\Inc\stm32h7xx_hal_conf.h \
   ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_rcc.h \
   ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_def.h \

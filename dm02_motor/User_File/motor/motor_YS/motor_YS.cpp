@@ -78,7 +78,7 @@ void Class_Motor_YS::send_data(){
  */
 void Class_Motor_YS::UART_send(){
     send_data();
-    UART_Transmit_Data(UART,motor_YS_send_Temp_buffer);
+    UART_Transmit_Data(UART,motor_YS_send_Temp_buffer,RS485_Send_Data_N);
 }
 
 /**

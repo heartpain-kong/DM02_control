@@ -1,8 +1,14 @@
-dm02_motor/motor_task.o: ..\User_File\task\motor_task.cpp \
-  ..\User_File\task\motor_task.h ..\User_File\motor\motor_LZ\motor_LZ.h \
+dm02_motor/control_task.o: ..\User_File\task\control_task.cpp \
+  ..\User_File\task\control_task.h \
+  ..\User_File\algorithm\math_support\math_support.h \
   ..\User_File\algorithm\struct_typedef.h \
-  ..\User_File\BSP\CAN\bsp_fdcan.h ..\Core\Inc\fdcan.h \
-  ..\Core\Inc\main.h ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal.h \
+  ..\Middlewares\ST\ARM\DSP\Inc\arm_math.h \
+  ..\Drivers\CMSIS\Include\cmsis_compiler.h \
+  ..\Drivers\CMSIS\Include\cmsis_armclang.h \
+  ..\User_File\task\motor_task.h \
+  ..\User_File\Driver\remote_control\remote_control.h \
+  ..\User_File\BSP\UART\UART.h ..\Core\Inc\usart.h ..\Core\Inc\main.h \
+  ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal.h \
   ..\Core\Inc\stm32h7xx_hal_conf.h \
   ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_rcc.h \
   ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_def.h \
@@ -39,8 +45,4 @@ dm02_motor/motor_task.o: ..\User_File\task\motor_task.cpp \
   ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_pcd.h \
   ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_ll_usb.h \
   ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal_pcd_ex.h \
-  ..\User_File\motor\motor_DJ\motor_DJ.h \
-  ..\User_File\algorithm\PID\alg_pid.h \
-  ..\User_File\motor\motor_YS\motor_YS.h ..\User_File\BSP\UART\UART.h \
-  ..\Core\Inc\usart.h ..\User_File\motor\motor_DM\motor_DM.h \
-  ..\User_File\algorithm\crc_ccitt.h ..\Core\Inc\tim.h
+  ..\Core\Inc\tim.h

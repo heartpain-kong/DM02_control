@@ -166,27 +166,6 @@ void USART3_RxHandler(UART_HandleTypeDef *Header, uint8_t *Buffer){
  
 }
 
-/**
- * @brief 1ms的回调函数
- * @return void
- */
-void Task1ms_Callback(){
-    
-	motor_DM_Data_send (&motor_dm,motor_dm_data.send);
-	motor_dm.can_send();
-	
-	motor_YS_Data_send(&motor_YS,motor_ys_data.send);
-	motor_YS.UART_send();
-	
-}
-
-/**
- * @brief 500us的回调函数
- * @return void
- */
-void Task500us_Callback (){
-
-}
 
 /**
  * @brief 灵足电机的接收数据传递
@@ -295,16 +274,16 @@ void motor_DJ_Init(FDCAN_HandleTypeDef *hfdcan,Class_Motor_DJ *__motor_dj,const 
  * @return void
  */
 void motor_YS_Init(UART_HandleTypeDef *huart,Class_Motor_YS *__motor_YS,uint8_t id,Struct_recv_motor_YS *data){
-     motor_YS.Init(huart,id,Motor_YS_Pos_control);
-     motor_YS.enable();
+     __motor_YS->Init(huart,id,Motor_YS_Pos_control);
+     __motor_YS->enable();
      HAL_Delay(10);
      while(__motor_YS->Get_Angle() ==0){
-         motor_YS.enable();
+        __motor_YS->enable();
         HAL_Delay(1);
     }
     motor_YS_Data_recv(__motor_YS,data);
-    motor_YS.zero();
-    motor_YS.enable();
+    __motor_YS->zero();
+    __motor_YS->enable();
     HAL_Delay(1);
 }
 
@@ -418,9 +397,6 @@ void motor_task_init(){
     USART_RX485_init(&huart2,USART2_RxHandler);//串口2回调函数的初始化
 	motor_YS_Init(&huart2,&motor_YS,1,&motor_ys_data.recv);
 	
-    //开定时器7和8
-    HAL_TIM_Base_Start_IT(&htim7);
-    HAL_TIM_Base_Start_IT(&htim8);
 }
 
 /**
@@ -437,27 +413,10 @@ void motor_task(){
 	motor_DJ.PID_Calculate_Data();
     motor_DJ_can_send ();
 	
-    HAL_Delay(1);
+	motor_DM_Data_send (&motor_dm,motor_dm_data.send);
+	motor_dm.can_send();
+	
+	motor_YS_Data_send(&motor_YS,motor_ys_data.send);
+	motor_YS.UART_send();
 }
-
-
-/**
- * @brief 定时器的中断回调函数
- * @param htim   定时器TIM_HandleTypeDef的指针
- * @return void
- */
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-    if (htim->Instance == TIM7)
-    {
-        Task500us_Callback();    //500ns的定时
-    }
-    else if (htim->Instance == TIM8)
-    {
-        Task1ms_Callback();   //1ms的定时
-    }
-}
-
-
-
 

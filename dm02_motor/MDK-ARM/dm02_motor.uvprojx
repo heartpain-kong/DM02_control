@@ -341,7 +341,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32H723xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../USB_DEVICE/App;../USB_DEVICE/Target;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Middlewares/ST/STM32_USB_Device_Library/Core/Inc;../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;../Middlewares/ST/ARM/DSP/Inc;../User_File/algorithm/math_support;../User_File/algorithm/PID;../User_File/algorithm/Slope;../User_File/algorithm;../User_File/BSP/CAN;../User_File/BSP/RS485;../User_File/Driver;../User_File/motor/motor_DJ;../User_File/motor/motor_DM;../User_File/motor/motor_LZ;../User_File/motor/motor_YS;../User_File/task</IncludePath>
+              <IncludePath>../Core/Inc;../USB_DEVICE/App;../USB_DEVICE/Target;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Middlewares/ST/STM32_USB_Device_Library/Core/Inc;../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;../Middlewares/ST/ARM/DSP/Inc;../User_File/algorithm/math_support;../User_File/algorithm/PID;../User_File/algorithm/Slope;../User_File/algorithm;../User_File/BSP/CAN;../User_File/Driver;../User_File/motor/motor_DJ;../User_File/motor/motor_DM;../User_File/motor/motor_LZ;../User_File/motor/motor_YS;../User_File/task;..\User_File\BSP\UART;..\User_File\Driver\remote_control</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -701,14 +701,21 @@
               <FilePath>..\User_File\BSP\CAN\bsp_fdcan.cpp</FilePath>
             </File>
             <File>
-              <FileName>bsp_RS485.cpp</FileName>
+              <FileName>UART.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\User_File\BSP\RS485\bsp_RS485.cpp</FilePath>
+              <FilePath>..\User_File\BSP\UART\UART.cpp</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Driver</GroupName>
+          <Files>
+            <File>
+              <FileName>remote_control.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\User_File\Driver\remote_control\remote_control.cpp</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>motor</GroupName>
@@ -742,6 +749,11 @@
               <FileName>motor_task.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\User_File\task\motor_task.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>control_task.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\User_File\task\control_task.cpp</FilePath>
             </File>
           </Files>
         </Group>

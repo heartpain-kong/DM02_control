@@ -30,7 +30,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "motor_task.h"
+#include "control_task.h"
 
 /* USER CODE END Includes */
 
@@ -133,7 +133,7 @@ int main(void)
   MX_TIM8_Init();
   /* USER CODE BEGIN 2 */
 
-motor_task_init();
+control_task_init();
  
 
   /* USER CODE END 2 */
@@ -145,7 +145,7 @@ motor_task_init();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  motor_task();
+	  control_task();
   }
   /* USER CODE END 3 */
 }
