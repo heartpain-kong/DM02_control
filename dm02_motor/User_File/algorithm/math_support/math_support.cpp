@@ -1,7 +1,7 @@
 #include "math_support.h"
 
 // rad换算到deg
-const float MATH_RPM_TO_RADPS = 2.0f * PI / 60.0f;
+const float MATH_RPM_TO_RADPS = 2.0f * PI / 360.0f;
 // deg换算到rad
 const float MATH_DEG_TO_RAD = PI / 180.0f;
 // 摄氏度换算到开氏度

@@ -39,19 +39,14 @@ void Class_Motor_YS::send_data(){
     motor_YS_send_Temp_buffer[1] = 0xEE;
     motor_YS_send_Temp_buffer[2] = id | Motor_YS_Status<<4;
     YS_T = T * 256;
-    YS_W = W * 128 /PI*Gearbox_Rate;
+    YS_W = (W * 128*Gearbox_Rate) /PI;
     if(control_mode == Motor_YS_Pos_control)
-        YS_Angle_Pos = (Pos+init_Pos) * 16384 * Gearbox_Rate /PI;
+        YS_Angle_Pos = ((Pos+init_Pos) * 32768 * Gearbox_Rate) /PI2;
     else 
-        YS_Angle_Pos = (Angle+init_Angle) *MATH_DEG_TO_RAD* 16384 * Gearbox_Rate /PI;
+        YS_Angle_Pos = ((Angle+init_Angle) *MATH_RPM_TO_RADPS* 32768 * Gearbox_Rate) /PI2;
 
     YS_Kp = Kp * 1280;
     YS_Kd = Kd * 1280;
-    YS_T = motor_max_min(YS_T,127.99f,-127.99f);
-    YS_W = motor_max_min(YS_W,804.0f,-804.0f);
-    YS_Angle_Pos = motor_max_min(YS_Angle_Pos,411774.0f,-411774.0f);
-    YS_Kp = motor_max_min(YS_Kp,25.599f,-25.599f);
-    YS_Kd = motor_max_min(YS_Kd,25.599f,-25.599f);
     motor_YS_send_Temp_buffer[3] = (YS_T) & 0xFF;
     motor_YS_send_Temp_buffer[4] = (YS_T>>8) & 0xFF;
     motor_YS_send_Temp_buffer[5] = (YS_W) & 0xFF;
@@ -114,8 +109,8 @@ void Class_Motor_YS::zero(){
  * @return void
  */
 void Class_Motor_YS::UART_recv(uint8_t *data){
-    int16_t YS_T,YS_W,YS_Angle_Pos,YS_Kp,YS_Kd;
-    
+    int16_t YS_T,YS_W,YS_Kp,YS_Kd;
+    int32_t YS_Angle_Pos;
     memcpy(motor_YS_recv_Temp_buffer,data,16);
     
     mode = motor_YS_recv_Temp_buffer[2]>>4 & 0xF;
@@ -129,7 +124,7 @@ void Class_Motor_YS::UART_recv(uint8_t *data){
                     motor_YS_recv_Temp_buffer[8]<<8 | motor_YS_recv_Temp_buffer[7];
     recv.Now_Pos=YS_Angle_Pos;
 	recv.Now_Pos= (recv.Now_Pos * 6.28319 )/(32768*6.33);
-    recv.Now_Angle = recv.Now_Pos/MATH_RPM_TO_RADPS;
+    recv.Now_Angle = recv.Now_Pos/MATH_DEG_TO_RAD;
     int8_t Temp = motor_YS_recv_Temp_buffer[11] & 0xFF;
     recv.Now_Temperature = Temp;
     recv.MError = motor_YS_recv_Temp_buffer[12] & 0x7;
