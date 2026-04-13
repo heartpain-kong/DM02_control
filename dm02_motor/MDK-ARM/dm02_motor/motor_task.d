@@ -1,6 +1,6 @@
 dm02_motor/motor_task.o: ..\User_File\task\motor_task.cpp \
-  ..\User_File\task\motor_task.h ..\User_File\motor\motor_LZ\motor_LZ.h \
-  ..\User_File\algorithm\struct_typedef.h \
+  ..\User_File\task\motor_task.h ..\User_File\algorithm\struct_typedef.h \
+  ..\User_File\motor\motor_LZ\motor_LZ.h \
   ..\User_File\BSP\CAN\bsp_fdcan.h ..\Core\Inc\fdcan.h \
   ..\Core\Inc\main.h ..\Drivers\STM32H7xx_HAL_Driver\Inc\stm32h7xx_hal.h \
   ..\Core\Inc\stm32h7xx_hal_conf.h \

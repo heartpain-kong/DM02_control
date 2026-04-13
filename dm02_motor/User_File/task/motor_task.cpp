@@ -17,6 +17,8 @@ extern FDCAN_HandleTypeDef hfdcan3;
 //灵足电机类和控制所需数据
 Class_Motor_LZ motor_lz;
 motor_lz_control motor_lz_data;
+uint8_t motor_lz_init=0;
+
 
 //大疆电机类和控制所需数据
 Class_Motor_DJ motor_DJ;
@@ -30,7 +32,7 @@ motor_YS_control motor_ys_data;
 Class_Motor_DM motor_dm;
 motor_DM_control motor_dm_data;
 
-
+void motor_LZ_send_Init(uint8_t bl);
 void motor_LZ_Data_send(Class_Motor_LZ *__motor_lz,Struct_send_motor_Lz data);
 void motor_DJ_Data_send(Class_Motor_DJ *__motor_dj,Struct_send_motor_DJ data);
 
@@ -51,22 +53,27 @@ void motor_DM_Data_recv(Class_Motor_DM *__motor_DM,Struct_recv_motor_DM *data);
  */
 void CAN1_Callback(FDCAN_RxHeaderTypeDef &Header, uint8_t *Buffer)
 {
-	
-	
-    uint8_t id = Header.Identifier >>8;
-    uint8_t mode =(Header.Identifier>>24)&0x1F;
-    switch (mode)
-    {
-		case 0x18:
-		case 0x02:
-        motor_lz.can_recv(Header.Identifier,Buffer);
-        motor_LZ_Data_recv(&motor_lz,&motor_lz_data.recv);
-		break;
-		default:
+	static uint8_t motor_lz_init_n=0;
+	if(motor_lz_init==0){
+
+		if(Buffer[0]==0xCF&&Buffer[1]==0x56)motor_LZ_send_Init(0);
+	}else{
+		
+		uint8_t id = Header.Identifier >>8;
+		uint8_t mode =(Header.Identifier>>24)&0x1F;
+		switch (mode)
 		{
+			case 0x18:
+			case 0x02:
+			motor_lz.can_recv(Header.Identifier,Buffer);
+			motor_LZ_Data_recv(&motor_lz,&motor_lz_data.recv);
 			break;
+			default:
+			{
+				break;
+			}
 		}
-    }
+	}
 }
 
 /**
@@ -219,6 +226,13 @@ void motor_LZ_Init(FDCAN_HandleTypeDef *hfdcan,Class_Motor_LZ *__motor_lz,const 
     __motor_lz->active_recv(1);
     __motor_lz->Set_Status(Motor_LZ_Status_ENABLE);
 
+}
+
+void motor_LZ_send_Init(uint8_t bl){
+	static uint32_t timer_can_init_motor_LZ;
+	if(bl)timer_can_init_motor_LZ++;
+	else timer_can_init_motor_LZ = 0;
+	if(timer_can_init_motor_LZ>=6000)motor_lz_init=1;
 }
 
 /**
@@ -375,28 +389,31 @@ void motor_DM_Init(FDCAN_HandleTypeDef *hfdcan,Class_Motor_DM *__motor_DM,const 
 
 }
 
+
+
 /**
  * @brief 电机的初始化
  * @return void
  */
 void motor_task_init(){
 
-    //灵足电机的初始化
+	HAL_TIM_Base_Start_IT(&htim8);
     bsp_can_init(&hfdcan1,CAN1_Callback);//CAN1回调函数的初始化
-    motor_LZ_Init(&hfdcan1,&motor_lz,MOTOR_LZ_02,1,&motor_lz_data.recv);
-    
-    //大疆电机的初始化
-    bsp_can_init(&hfdcan3,CAN3_Callback);//CAN2回调函数的初始化
-    motor_DJ_Init(&hfdcan3,&motor_DJ,MOTOR_DJ_M3508,1,&motor_dj_data.recv);
+	bsp_can_init(&hfdcan3,CAN3_Callback);//CAN2回调函数的初始化
+    bsp_can_init(&hfdcan2,CAN2_Callback);//CAN3回调函数的初始化	
 
-    //达妙电机的初始化
-    bsp_can_init(&hfdcan2,CAN2_Callback);//CAN3回调函数的初始化
-    motor_DM_Init(&hfdcan2,&motor_dm,MOTOR_DM_J10010L,1,&motor_dm_data.recv);
-    
-    //宇树电机初始化
-    USART_RX485_init(&huart2,USART2_RxHandler);//串口2回调函数的初始化
+   USART_RX485_init(&huart2,USART2_RxHandler);//串口2回调函数的初始化
+   
+   //大疆电机的初始化
+   motor_DJ_Init(&hfdcan3,&motor_DJ,MOTOR_DJ_M3508,1,&motor_dj_data.recv);
+
+   //达妙电机的初始化
+   motor_DM_Init(&hfdcan2,&motor_dm,MOTOR_DM_J10010L,1,&motor_dm_data.recv);
+   
+//	//宇树电机初始化
 	motor_YS_Init(&huart2,&motor_YS,1,&motor_ys_data.recv);
-	
+	//灵足电机的初始化
+    while(motor_lz_init==0)motor_LZ_Init(&hfdcan1,&motor_lz,MOTOR_LZ_02,127,&motor_lz_data.recv);
 }
 
 /**

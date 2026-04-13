@@ -6,13 +6,13 @@
 #include "math_support.h"
 
 //电机数据发送
-uint8_t motor_send_LZ_Data[8];
+static uint8_t motor_send_LZ_Data[8];
 //失能 使能 的数据
-uint8_t motor_send_LZ_Data_lose_enable[8]={00,00,00,00,00,00,00,00};
+static uint8_t motor_send_LZ_Data_lose_enable[8]={00,00,00,00,00,00,00,00};
 //主动上报模式
-uint8_t motor_send_LZ_Data_active_recv[8]={01,02,03,04,05,06,00,00};
+static uint8_t motor_send_LZ_Data_active_recv[8]={01,02,03,04,05,06,00,00};
 //CAN_ID的修改 零点设置
-uint8_t motor_send_LZ_Data_zero_set_CAN_ID[8] = {01,00,00,00,00,00,00,00};
+static uint8_t motor_send_LZ_Data_zero_set_CAN_ID[8] = {01,00,00,00,00,00,00,00};
 
 
 /**

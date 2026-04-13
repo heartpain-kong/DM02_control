@@ -9,8 +9,11 @@
  * @return void
  */
  
+bool control_system_init_bl;
 void Task1ms_Callback(){
-	motor_task();
+	
+	if(motor_lz_init==0)motor_LZ_send_Init(1);
+	if(control_system_init_bl)motor_task();
 
 	
 }
@@ -36,7 +39,7 @@ void control_task_init(){
 	remote_control_init();
 	motor_task_init();
     HAL_TIM_Base_Start_IT(&htim7);
-    HAL_TIM_Base_Start_IT(&htim8);
+    control_system_init_bl=1;
 }
 
 

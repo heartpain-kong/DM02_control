@@ -88,6 +88,8 @@ struct motor_lz_control
 	Struct_recv_motor_Lz recv;
 };
 
+extern const uint8_t motor_LZ_init_recv_data[8];
+
 //创建灵足电机类
 class Class_Motor_LZ{
 	
