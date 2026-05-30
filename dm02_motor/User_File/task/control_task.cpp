@@ -37,9 +37,9 @@ void Task25ns_Callback (){
  */
 void control_task_init(){
 	remote_control_init();
-	motor_task_init();
-    HAL_TIM_Base_Start_IT(&htim7);
-    control_system_init_bl=1;
+//	motor_task_init();
+//    HAL_TIM_Base_Start_IT(&htim7);
+//    control_system_init_bl=1;
 }
 
 

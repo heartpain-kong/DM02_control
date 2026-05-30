@@ -1,5 +1,6 @@
 #include "math_support.h"
 
+const float PI2 = 6.2831853084;
 // rad换算到deg
 const float MATH_RPM_TO_RADPS = 2.0f * PI / 360.0f;
 // deg换算到rad
@@ -80,4 +81,15 @@ uint16_t Math_Endian_Reverse_16(void *Source, void *Destination)
     }
 
     return (tmp_value_16);
+}
+/**
+ * @param[in]      ref: 反馈数据
+ * @param[in]      set: 设定值
+ * **/
+
+fp32 chassis_math_angle_set_ref(fp32 ref,fp32 set){
+	if(set>ref){
+		return set-ref<=ref+PI2-set ? set-ref : ref+PI2-set;
+	}
+	return ref-set<=set+PI2-ref ? ref-set : set+PI2-ref;
 }

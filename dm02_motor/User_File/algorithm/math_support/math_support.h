@@ -9,6 +9,7 @@
 extern const float MATH_RPM_TO_RADPS;
 extern const float MATH_DEG_TO_RAD;
 extern const float MATH_CELSIUS_TO_KELVIN;
+extern const float PI2;
 
 template<typename Type>
 Type Basic_Math_Abs(Type x)
@@ -45,5 +46,7 @@ fp32 motor_max_min(fp32 proto,fp32 max,fp32 min);
 void LimitMax(fp32 input,fp32 max);
 
 uint16_t Math_Endian_Reverse_16(void *Source, void *Destination);
+
+fp32 chassis_math_angle_set_ref(fp32 ref,fp32 set);
 
 #endif

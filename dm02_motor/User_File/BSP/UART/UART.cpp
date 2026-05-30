@@ -24,7 +24,7 @@ USART_Callback Usart10_Callback_Function;
 __attribute__((section (".AXI_SRAM"))) static uint8_t Usart1_recv_Data[USART1_recv_Data_N];
 __attribute__((section (".AXI_SRAM"))) static uint8_t Usart2_recv_Data[RS485_recv_Data_N];
 __attribute__((section (".AXI_SRAM"))) static uint8_t Usart3_recv_Data[RS485_recv_Data_N];
-__attribute__((section (".AXI_SRAM"))) static uint8_t Usart5_recv_Data[SBUS_RX_BUF_NUM];
+__attribute__((section (".AXI_SRAM")))  uint8_t Usart5_recv_Data[SBUS_RX_BUF_NUM];
 __attribute__((section (".AXI_SRAM"))) static uint8_t Usart7_recv_Data[USART7_recv_Data_N];
 __attribute__((section (".AXI_SRAM"))) static uint8_t Usart10_recv_Data[USART10_recv_Data_N];
 
@@ -142,7 +142,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
         {
 			if(SBUS_RX_init_bl){
 				for(uint8_t i=0;i<SBUS_RX_BUF_NUM;i++){
-					if(Usart5_recv_Data[i]!=SBUS_RX_Data[i]){
+					if(Usart5_recv_Data[i]!=SBUS_RX_Data[i]&&i!=5){
 						Usart5_recv_Data[i]=0;
 						return;
 					}

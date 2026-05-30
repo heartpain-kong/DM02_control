@@ -51,6 +51,7 @@
 "dm02_motor\alg_slope.o"
 "dm02_motor\alg_pid.o"
 "dm02_motor\math_support.o"
+"dm02_motor\chassis.o"
 "dm02_motor\bsp_fdcan.o"
 "dm02_motor\uart.o"
 "dm02_motor\remote_control.o"
@@ -60,6 +61,7 @@
 "dm02_motor\motor_dj.o"
 "dm02_motor\motor_task.o"
 "dm02_motor\control_task.o"
+"..\Middlewares\ST\ARM\DSP\Lib\arm_cortexM7lfdp_math.lib"
 --strict --scatter "..\dm02_motor.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
